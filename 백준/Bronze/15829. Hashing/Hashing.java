@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -15,7 +14,7 @@ public class Main {
 
         for (int i = 0; i < L; i++) {
             H += ((str.charAt(i) - 96) * pow);
-            pow = pow * 31;
+            pow = pow * 31 % 1234567891;
         }
         System.out.println(H % 1234567891);
     }
