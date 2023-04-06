@@ -8,21 +8,20 @@ public class Main {
         int T = in.nextInt();
 
         for (int i = 0; i < T; i++) {
+            int A = in.nextInt();
+            int B = in.nextInt();
 
-            int a = in.nextInt();
-            int b = in.nextInt();
+            System.out.println(A * B /gcd(A, B));
+        }
+    }
 
-            System.out.println(LCM(a, b));
+    public static int gcd(int a, int b) {
+        while (b > 0) {
+            int tmp = a;
+            a = b;
+            b = tmp % b;
         }
 
-    }
-
-    public static int GCD(int a, int b) {
-        if (a % b == 0) return b;
-        return GCD(b, a % b);
-    }
-
-    public static int LCM(int a, int b) {
-        return a * b / GCD(a, b);
+        return a;
     }
 }
