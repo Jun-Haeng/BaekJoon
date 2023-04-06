@@ -7,18 +7,18 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static StringTokenizer st;
     static int N, M;
-    static boolean[][] visited;
     static int[][] map;
+    static boolean[][] visited;
+    static Queue<int[]> q = new LinkedList<>();
+
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
-    static Queue<int[]> q = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        st = new StringTokenizer(br.readLine(), " ");
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
@@ -35,6 +35,7 @@ public class Main {
         bfs(0, 0);
         visited[0][0] = true;
         System.out.println(map[N-1][M-1]);
+
     }
 
     public static void bfs(int x, int y) {
