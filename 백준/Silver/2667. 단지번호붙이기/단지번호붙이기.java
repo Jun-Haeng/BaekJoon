@@ -5,51 +5,53 @@ import java.util.*;
 
 public class Main {
 
-    static int[][] map;
+    static int n;
     static boolean[][] visited;
-    static int N, cnt;
+    static int[][] map;
+    static Queue<int[]> q = new LinkedList<>();
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
-    static Queue<int[]> q = new LinkedList<>();
-    static List<Integer> arr = new ArrayList<>();
+    static int cnt = 0;
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        N = Integer.parseInt(br.readLine());
+        n = Integer.parseInt(br.readLine());
 
-        map = new int[N][N];
-        visited = new boolean[N][N];
+        map = new int[n][n];
+        visited = new boolean[n][n];
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
             String str = br.readLine();
 
-            for (int j = 0; j < N; j++) {
+            for (int j = 0; j < n; j++) {
                 map[i][j] = str.charAt(j) - '0';
             }
         }
 
-        cnt = 0;
+        List<Integer> arr = new ArrayList<>();
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (map[i][j] != 0 && !visited[i][j]) {
-                    bfs(i, j);
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 0; j < n; j++) {
+                if (map[i][j] == 1 && !visited[i][j]) {
+                    arr.add(bfs(i, j));
                     cnt++;
                 }
             }
         }
 
-        System.out.println(cnt);
-
         Collections.sort(arr);
 
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i));
+        System.out.println(cnt);
+        for (Integer x : arr) {
+            System.out.println(x);
         }
+
     }
 
-    public static void bfs(int x, int y) {
+    public static int bfs(int x, int y) {
         q.add(new int[] {x, y});
 
         visited[x][y] = true;
@@ -57,25 +59,21 @@ public class Main {
         int apartment = 1;
 
         while (!q.isEmpty()) {
-
-            int[] cur = q.poll();
-            int curX = cur[0];
-            int curY = cur[1];
+            int[] tmp = q.poll();
 
             for (int i = 0; i < 4; i++) {
-                int nx = curX + dx[i];
-                int ny = curY + dy[i];
+                int nx = tmp[0] + dx[i];
+                int ny = tmp[1] + dy[i];
 
-                if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                    if (map[nx][ny] == 1 && !visited[nx][ny]) {
-                        q.add(new int[] {nx, ny});
-                        visited[nx][ny] = true;
-                        apartment++;
-                    }
-                }
+                if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+                if (visited[nx][ny] || map[nx][ny] == 0) continue;
+
+                visited[nx][ny] = true;
+                q.add(new int[] {nx, ny});
+                apartment++;
             }
         }
 
-        arr.add(apartment);
+        return apartment;
     }
 }
