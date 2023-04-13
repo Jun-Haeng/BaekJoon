@@ -49,7 +49,8 @@ public class Main {
     public static int bfs(int a, int b) {
 
         q.add(new int[] {a, b});
-        res = 0;
+        map[a][b] = 0;
+        res = 1;
 
         while (!q.isEmpty()) {
             int[] tmp = q.poll();
@@ -66,8 +67,7 @@ public class Main {
                 res++;
             }
         }
-
-        if (res == 0) return 1;
+        
         return res;
     }
 }
