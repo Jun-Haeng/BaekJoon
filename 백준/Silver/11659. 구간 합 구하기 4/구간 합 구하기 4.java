@@ -20,13 +20,7 @@ public class Main {
 
         st = new StringTokenizer(br.readLine(), " ");
         for (int i = 1; i < N + 1; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-
-        int[] res = new int[N+1];
-
-        for (int i = 1; i < N + 1; i++) {
-            res[i] = res[i - 1] + arr[i];
+            arr[i] = arr[i-1] + Integer.parseInt(st.nextToken());
         }
 
         for (int i = 0; i < M; i++) {
@@ -34,7 +28,7 @@ public class Main {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
-            System.out.println(res[b] - res[a-1]);
+            System.out.println(arr[b] - arr[a-1]);
         }
     }
 }
