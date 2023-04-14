@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    // int[][] arr = new int[2][6] 으로 할걸..
+
     static int N, K;
     static int cnt;
 
