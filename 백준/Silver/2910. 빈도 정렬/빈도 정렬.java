@@ -23,22 +23,19 @@ public class Main {
             map.put(tmp, map.getOrDefault(tmp, 0) + 1);
         }
 
-        List<Map.Entry<Integer, Integer>> entryList
-                = new LinkedList<>(map.entrySet());
+        ArrayList<Integer> a = new ArrayList<>(map.keySet());
 
-        entryList.sort(new Comparator<Map.Entry<Integer, Integer>>() {
+        Collections.sort(a, new Comparator<Integer>() {
             @Override
-            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
-                return o2.getValue() - o1.getValue();
+            public int compare(Integer o1, Integer o2) {
+                return Integer.compare(map.get(o2), map.get(o1));
             }
         });
 
-        for (Map.Entry<Integer, Integer> entry : entryList) {
 
-            int tmp = entry.getValue();
-
-            for (int i = 0; i < entry.getValue(); i++) {
-                System.out.print(entry.getKey() + " ");
+        for (Integer value : a) {
+            for (int i = 0; i < map.get(value); i++) {
+                System.out.print(value + " ");
             }
         }
 
