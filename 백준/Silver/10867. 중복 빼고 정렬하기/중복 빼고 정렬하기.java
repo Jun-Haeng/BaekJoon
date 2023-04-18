@@ -1,28 +1,27 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        int N = in.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int[] arr = new int[N];
+        int N = Integer.parseInt(br.readLine());
+        Set<Integer> set = new HashSet<>();
 
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < N; i++) {
-            arr[i] = in.nextInt();
+            set.add(Integer.parseInt(st.nextToken()));
         }
 
-        List<Integer> res = new ArrayList<>();
+        ArrayList<Integer> arr = new ArrayList<>(set);
+        Collections.sort(arr);
 
-        for (int i = 0; i < N; i++) {
-            if (!res.contains(arr[i])) res.add(arr[i]);
-        }
-
-        Collections.sort(res);
-
-        for (Integer val : res) {
-            System.out.print(val + " ");
+        for (Integer integer : arr) {
+            System.out.print(integer + " ");
         }
     }
 }
