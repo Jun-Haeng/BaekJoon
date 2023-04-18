@@ -1,29 +1,42 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         int N = Integer.parseInt(br.readLine());
 
-        List<String> arr = new ArrayList<>();
+        String[] arr = new String[N];
 
         for (int i = 0; i < N; i++) {
-            String str = br.readLine();
-            if (arr.contains(str)) continue;
-            else arr.add(str);
+            arr[i] = br.readLine();
         }
 
-        Collections.sort(arr);
+        Arrays.sort(arr, new Comparator<String>() {
+            public int compare(String s1, String s2) {
 
-        Comparator<String> c = Comparator.comparingInt(String::length);
+                if (s1.length() == s2.length()) {
+                    return s1.compareTo(s2);
+                }
 
-        Collections.sort(arr, c);
+                return s1.length() - s2.length();
+            }
+        });
 
-        for (String s : arr) {
-            System.out.println(s);
+
+        System.out.println(arr[0]);
+
+        for (int i = 1; i < N; i++) {
+            if (arr[i].equals(arr[i-1])) continue;
+            else System.out.println(arr[i]);
         }
     }
 }
