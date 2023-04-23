@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Main {
+    
+    // 에라토스 어쩌구의 체를 너무 멋없게 짠거같음.. 더 시간 줄일수 있는데
+    // 그리고 솔직히 1씩 증가 1씩 감소는 동일하게 하는게 맞는건데 왜 저런식으로
+    // 생각했을지에 대해서는... 좀 그렇다 . 시간낭비 너무 심했던듯
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
