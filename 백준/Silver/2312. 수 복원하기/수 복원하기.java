@@ -1,6 +1,8 @@
 import java.util.*;
 
 public class Main {
+    
+    // 궅이 map 안쓰고도 할수있다는 생각이 들었다.
 
     public static void main(String[] args) {
 
