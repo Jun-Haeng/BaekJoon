@@ -2,57 +2,60 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static int n, m;
-    static int[] arr, nums;
+    static int N, M;
+    static int[] ans;
+    static int[] arr;
     static boolean[] visited;
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        arr = new int[m];
-        visited = new boolean[n];
-        nums = new int[n];
+        ans = new int[M];
+        arr = new int[N];
+        visited = new boolean[N];
 
-        st = new StringTokenizer(br.readLine());
-
-        for (int i = 0; i < n; i++) {
-            nums[i] = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(nums);
+        Arrays.sort(arr);
 
-        dfs(0);
+        dfs( 0);
         System.out.println(sb);
+
     }
 
-    private static void dfs(int depth) {
+    static void dfs(int depth) {
+        if (depth == M) {
 
-        if (depth == m) {
-            for (int val : arr) {
-                sb.append(val).append(' ');
+            for (int i : ans) {
+                sb.append(i).append(' ');
             }
             sb.append('\n');
             return;
         }
 
         int before = 0;
-        for (int i = 0; i < n; i++) {
-            if (visited[i]) continue;
+        for (int i = 0; i < N; i++) {
 
-            if (before != nums[i]) {
+            if (!visited[i] && before != arr[i]) {
                 visited[i] = true;
-                arr[depth] = nums[i];
-                before = nums[i];
-                dfs(depth + 1);
+                before = arr[i];
+                ans[depth] = arr[i];
+                dfs( depth + 1);
                 visited[i] = false;
             }
         }
