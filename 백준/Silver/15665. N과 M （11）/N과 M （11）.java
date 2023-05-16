@@ -6,54 +6,54 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static int n, m;
-    static boolean[] visited;
+    static int N, M;
+    static int[] ans;
     static int[] arr;
-    static int[] graph;
+    static boolean[] visited;
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-
-        visited = new boolean[n];
-        arr = new int[n];
-        graph = new int[m];
+        ans = new int[M];
+        arr = new int[N];
+        visited = new boolean[N];
 
         st = new StringTokenizer(br.readLine(), " ");
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
 
-        dfs(0);
+        dfs( 0);
         System.out.println(sb);
 
     }
 
-    public static void dfs(int depth) {
+    static void dfs( int depth) {
+        if (depth == M) {
 
-        if (depth == m) {
-            for (int value : graph) {
-                sb.append(value).append(" ");
+            for (int i : ans) {
+                sb.append(i).append(' ');
             }
             sb.append('\n');
             return;
         }
 
         int before = 0;
+        for (int i = 0; i < N; i++) {
 
-        for (int i = 0; i < n; i++) {
-            if (before == arr[i]) continue;
-
-            graph[depth] = arr[i];
-            before = arr[i];
-            dfs(depth + 1);
+            if (before != arr[i]) {
+                before = arr[i];
+                ans[depth] = arr[i];
+                dfs( depth + 1);
+            }
         }
     }
 }
