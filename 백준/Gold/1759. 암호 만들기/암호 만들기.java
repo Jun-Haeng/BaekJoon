@@ -8,7 +8,8 @@ public class Main {
 
     static int L, C;
     static char[] arr;
-    static char[] res;
+    static char[] ans;
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
 
@@ -19,45 +20,48 @@ public class Main {
         C = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine(), " ");
-        res = new char[C];
-        arr = new char[L];
+        arr = new char[C];
+        ans = new char[L];
 
         for (int i = 0; i < C; i++) {
-            res[i] = st.nextToken().charAt(0);
+            arr[i] = st.nextToken().charAt(0);
         }
 
-        Arrays.sort(res);
-        backTracking(0, 0);
+        Arrays.sort(arr);
+        // 최소 한개의 모음, 두개의 자음..
+
+        dfs(0, 0);
+
+        System.out.println(sb);
     }
 
-    static void backTracking(int depth, int index) {
+    static void dfs(int at, int depth) {
         if (depth == L) {
-            if (possible(arr)) {
-                for (char c : arr) {
-                    System.out.print(c);
+            if (possible(ans)) {
+                for (char an : ans) {
+                    sb.append(an);
                 }
-                System.out.println();
+                sb.append('\n');
             }
-
             return;
         }
 
-        for (int i = index; i < C ; i++) {
-            arr[depth] = res[i];
-            backTracking(depth + 1, i + 1);
+        for (int i = at; i < C; i++) {
+            ans[depth] = arr[i];
+            dfs(i + 1, depth + 1);
         }
+
     }
 
-    static boolean possible(char[] arr) {
+    static boolean possible(char[] ans) {
         int a = 0;
         int b = 0;
 
-        for (char c : arr) {
-            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c =='u') a++;
+        for (char c : ans) {
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') a++;
             else b++;
         }
 
-        if (a >= 1 && b >= 2) return true;
-        return false;
+        return a >= 1 && b >= 2;
     }
 }
