@@ -64,6 +64,11 @@ public class Main {
 
         }
 
+        /**
+         * 다 뽑아놓고 소수인지 파악한게 아니라
+         * 가지치기를 한거임.. 이런식으로 풀어야 시간초과가 안생긴다
+         */
+
         for (int i = 1; i < 10; i++) {
             if (check(Integer.parseInt(num + i))) {
                 backTracking(num + i, depth + 1);
