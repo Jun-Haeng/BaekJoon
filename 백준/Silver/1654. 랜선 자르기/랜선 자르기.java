@@ -5,20 +5,18 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static int K, N;
-    static long[] arr;
-
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        K = Integer.parseInt(st.nextToken());
-        N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(st.nextToken());
 
-        arr = new long[K];
-
+        long start = 0;
         long end = 0;
 
+        long[] arr = new long[K];
         for (int i = 0; i < K; i++) {
             arr[i] = Integer.parseInt(br.readLine());
             end = Math.max(end, arr[i]);
@@ -26,16 +24,12 @@ public class Main {
 
         end++;
 
-        long start = 0;
-        long mid = 0;
-
         while (start < end) {
+            long mid = (start + end) / 2;
+            int cnt = 0;
 
-            mid = (start + end) / 2;
-            long cnt = 0;
-
-            for (int i = 0; i < K; i++) {
-                cnt += (arr[i] / mid);
+            for (long value : arr) {
+                cnt += value / mid;
             }
 
             if (cnt < N) end = mid;
