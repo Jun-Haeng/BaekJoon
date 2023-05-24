@@ -1,46 +1,53 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
 
-        int[] arr = new int[N];
+    public static void main(String[] args) throws IOException {
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(br.readLine());
+        long[] arr = new long[N];
+
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < N; i++) {
-            arr[i] = in.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
 
-        int M = in.nextInt();
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine(), " ");
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
 
-            if (binarySearch(arr, in.nextInt()) >= 0) {
-                sb.append(1).append('\n');
-            } else {
-                sb.append(0).append('\n');
-            }
+            long tmp = Integer.parseInt(st.nextToken());
+            if (binarySearch(arr, tmp)) sb.append(1).append('\n');
+            else sb.append(0).append('\n');
         }
+
         System.out.println(sb);
     }
 
-    static int binarySearch(int[] arr, int key) {
-        int lo = 0;
-        int hi = arr.length - 1;
+    static boolean binarySearch(long[] arr, long key) {
 
-        while (lo <= hi) {
+        int start = 0;
+        int end = arr.length - 1;
 
-            int mid = (lo + hi) / 2;
+        while (start <= end) {
 
-            if (key < arr[mid]) hi = mid - 1;
-            else if (key > arr[mid]) lo = mid + 1;
-            else return mid;
+            int mid = (start + end) / 2;
+
+            if (key < arr[mid]) end = mid - 1;
+            else if (key > arr[mid]) start = mid + 1;
+            else return true;
         }
 
-        return -1;
+        return false;
     }
 }
