@@ -2,24 +2,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main {
 
-    static int N, M;
-    static int[] arr;
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        N = Integer.parseInt(br.readLine());
-
-        arr = new int[N];
-
+        int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+        int[] arr = new int[N];
 
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
@@ -27,32 +21,33 @@ public class Main {
 
         Arrays.sort(arr);
 
-        M = Integer.parseInt(br.readLine());
-
+        int M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine(), " ");
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < M; i++) {
-            if (binarySearch(Integer.parseInt(st.nextToken()))) {
-                sb.append("1 ");
-            } else sb.append("0 ");
+            int tmp = Integer.parseInt(st.nextToken());
+
+            if (binarySearch(arr, tmp)) sb.append(1).append(' ');
+            else sb.append(0).append(' ');
         }
+
         System.out.println(sb);
     }
 
-    public static boolean binarySearch(int target) {
-        int left = 0;
-        int right = N - 1;
+    static boolean binarySearch(int[] arr, int num) {
 
-        while (left <= right) {
+        int start = 0;
+        int end = arr.length - 1;
 
-            int midIndex = (left + right) / 2;
-            int mid = arr[midIndex];
+        while (start < end) {
+            int mid = (start + end) / 2;
 
-            if (target == mid) return true;
-            else if (target > mid) left = midIndex + 1;
-            else right = midIndex - 1;
+            if (num <= arr[mid]) end = mid;
+            else start = mid + 1;
         }
 
-        return false;
+        if (arr[start] == num) return true;
+        else return false;
     }
 }
