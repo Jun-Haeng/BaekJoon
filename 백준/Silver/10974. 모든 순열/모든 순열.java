@@ -1,43 +1,48 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
+    static int N;
     static int[] arr;
     static boolean[] visited;
-    static int N;
-    static StringBuilder sb;
+    static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        N = in.nextInt();
+        N = Integer.parseInt(br.readLine());
 
         arr = new int[N];
         visited = new boolean[N];
 
-        dfs(0);
-
+        backTracking(0);
         System.out.println(sb);
     }
 
-    private static void dfs(int depth) {
+    public static void backTracking(int depth) {
+
         if (depth == N) {
-            for (int val : arr) {
-                sb.append(val).append(' ');
+
+            for (int value : arr) {
+                sb.append(value).append(' ');
             }
+
             sb.append('\n');
+
             return;
         }
 
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < N; i++) {
             if (!visited[i]) {
                 visited[i] = true;
                 arr[depth] = i + 1;
-                dfs(depth + 1);
+                backTracking(depth + 1);
                 visited[i] = false;
             }
         }
     }
+
 }
