@@ -1,46 +1,42 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-    static Integer dp[];
-    static int arr[];
+    public static void main(String[] args) throws IOException {
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = in.nextInt();
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N+1];
+        Integer[] dp = new Integer[N+1];
 
-        dp = new Integer[N];
-        arr = new int[N];
-
-        for (int i = 0; i < N; i++) {
-            arr[i] = in.nextInt();
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 1; i <= N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < N; i++) {
-            LIS(i);
-        }
+        dp[0] = 0;
+        dp[1] = 1;
 
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            max = Math.max(max, dp[i]);
-        }
+        int maxSum = 0;
 
-        System.out.println(max);
+        for (int i = 1; i <= N; i++) {
+            dp[i] = arr[i];
+            int max = 0;
 
-    }
-
-    static int LIS(int N) {
-        if (dp[N] == null) {
-            dp[N] = arr[N];
-
-            for (int i = N - 1; i >= 0; i--) {
-                if (arr[N] > arr[i]) {
-                    dp[N] = Math.max(dp[N], LIS(i) + arr[N]);
+            for (int j = 0; j <= i - 1; j++) {
+                if (arr[j] < arr[i]) {
+                    max = Math.max(dp[j], max);
                 }
             }
+
+            dp[i] = max + arr[i];
+            maxSum = Math.max(maxSum, dp[i]);
         }
 
-        return dp[N];
+        System.out.println(maxSum);
     }
 }
