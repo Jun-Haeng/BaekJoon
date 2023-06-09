@@ -1,34 +1,37 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        Scanner in = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-        int n = in.nextInt();
-
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+        int[] arr = new int[N];
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int x = in.nextInt();
+        Arrays.sort(arr);
+        int X = Integer.parseInt(br.readLine());
 
         int cnt = 0;
+        int left = 0;
+        int right = N - 1;
 
-        Arrays.sort(arr);
+        while (true) {
+            if (left >= right) break;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (arr[i] + arr[j] == x) {
-                    cnt++;
-                    break;
-                }
+            int sum = arr[left] + arr[right];
+            if (sum >= X) right--;
+            else left++;
 
-            }
+            if (sum == X) cnt++;
         }
 
         System.out.println(cnt);
