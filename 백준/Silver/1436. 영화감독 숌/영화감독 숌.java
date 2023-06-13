@@ -5,20 +5,24 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
 
-        int num = 666;
-        int count = 1;
+        int cnt = 0;
 
-        while (count != N) {
+        int res = 0;
 
-            num++;
+        while (true) {
+            if (cnt == N) break;
 
-            if (String.valueOf(num).contains("666")) count++;
+            res++;
+
+            String tmp = String.valueOf(res);
+            if (tmp.contains("666")) cnt++;
         }
 
-        System.out.println(num);
+        System.out.println(res);
     }
 }
