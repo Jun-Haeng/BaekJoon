@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -15,15 +14,16 @@ public class Main {
         int W = Integer.parseInt(st.nextToken());
 
         int[] arr = new int[W];
-        st = new StringTokenizer(br.readLine(), " ");
 
+        st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < W; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         int res = 0;
 
-        for (int i = 1; i < W - 1; i++) {
+        for (int i = 0; i < W; i++) {
+
             int left = 0;
             int right = 0;
 
@@ -35,12 +35,11 @@ public class Main {
                 right = Math.max(right, arr[j]);
             }
 
-            if (arr[i] < left && arr[i] < right) {
+            if (left > arr[i] && right > arr[i]) {
                 res += Math.min(left, right) - arr[i];
             }
         }
 
         System.out.println(res);
-
     }
 }
